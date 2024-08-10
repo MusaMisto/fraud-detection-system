@@ -85,4 +85,4 @@ For more information or inquiries, please contact **[Musa Misto](mailto:misto.mu
 
 ## Acknowledgements
 
-This project was developed during an internship at **[Optimiza]**. Special thanks to the team for their support and guidance.
+This project was developed during an internship at **Optimiza**. Special thanks to the team for their support and guidance.
