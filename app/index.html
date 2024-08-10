@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fraud Detection System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div id="content">
+        <h1>Fraud Detection System</h1>
+        <form id="upload-form" action="/predict/" method="post" enctype="multipart/form-data">
+            <div class="file-upload">
+                <input type="file" id="file" name="file" accept=".json" required>
+                <span>Choose File</span>
+            </div>
+            <button type="submit">Perform Check</button>
+        </form>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        document.getElementById('upload-form').onsubmit = async function(event) {
+            event.preventDefault();
+            const formData = new FormData();
+            const fileField = document.querySelector('#file');
+    
+            formData.append('file', fileField.files[0]);
+    
+            const response = await fetch('/predict/', {
+                method: 'POST',
+                body: formData
+            });
+    
+            const result = await response.json();
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerText = result.result;
+    
+            // Remove previous classes
+            document.body.classList.remove('legit', 'fraud');
+    
+            // Add new class based on result
+            if (result.result.includes('Fraudulent')) {
+                document.body.classList.add('fraud');
+            } else {
+                document.body.classList.add('legit');
+            }
+        }
+    </script>    
+</body>
+</html>
